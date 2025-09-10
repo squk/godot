@@ -1754,13 +1754,9 @@ void Node::remove_child(Node *p_child) {
 void Node::_update_children_cache_impl() const {
 	// Assign children
 	data.children_cache.resize(data.children.size());
-	int idx = 0;
 	for (const KeyValue<StringName, Node *> &K : data.children) {
-		data.children_cache[idx] = K.value;
-		idx++;
+		data.children_cache[K.value->data.index] = K.value;
 	}
-	// Sort them
-	data.children_cache.sort_custom<ComparatorByIndex>();
 	// Update indices
 	data.external_children_count_cache = 0;
 	data.internal_children_back_count_cache = 0;
